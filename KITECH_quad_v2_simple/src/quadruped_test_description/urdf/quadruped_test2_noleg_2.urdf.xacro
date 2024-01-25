@@ -1,0 +1,250 @@
+<?xml version="1.0" ?>
+
+<robot name="QuadrupedTest2" xmlns:xacro="http://www.ros.org/wiki/xacro">
+
+  <xacro:include filename="$(find quadruped_test_description)/urdf/quadruped_test2.trans" />
+  <xacro:include filename="$(find quadruped_test_description)/urdf/quadruped_test2.gazebo" />
+
+ 
+  <!-- <link name="world"/> -->
+  <link name="base_footprint"/>/
+
+  
+  <joint name="fixed_to_world" type="fixed">
+    <origin xyz="0 0 0"/>
+    <parent link="base_footprint"/>
+    <child link="DrivingPart"/>
+  </joint>
+  
+  <link name="Body">
+    <inertial>
+        <origin xyz="0 0.000 0.23246" rpy="0 0 0"/>
+        <!-- <origin xyz="-0.0 0.000 -0.01896" rpy="0 0 0"/> -->
+        <mass value="307.332"/>
+        <inertia ixx="11.32793572" ixy="0.015444025" ixz="-0.246367506" 
+                 iyy="175.3832154" iyz="0.0007258" izz="180.3204645"/>
+      </inertial>
+      <!-- <visual>
+        <origin xyz="0 0 0" rpy="0 0 0"/>
+        <geometry>
+          <mesh filename="../mesh/V2/Body.stl" scale="1 1 1"/>
+        </geometry>
+      </visual> -->
+       <visual>
+        <origin xyz="0 0 0.1935" rpy="0 0 0"/>
+        <geometry>
+          <box size="2.4 0.4 0.28"/>
+        </geometry>
+        <!-- <material name="white"/> -->
+      </visual>
+       <visual>
+        <origin xyz="0 0 0.3135" rpy="0 0 0"/>
+        <geometry>
+          <box size="2.4 0.8 0.035"/>
+        </geometry>
+        <!-- <material name="white"/> -->
+      </visual>
+
+      <collision>
+        <origin xyz="0 0 0.1935" rpy="0 0 0"/>
+        <geometry>
+          <box size="2.4 0.4 0.28"/>
+        </geometry>
+      </collision>
+
+      <collision>
+        <origin xyz="0 0 0.2235" rpy="0 0 0"/>
+        <geometry>
+          <box size="2.4 0.8 0.035"/>
+        </geometry>
+      </collision>
+  </link>
+
+  <!-- Sensors -->
+  <!-- Front Laser -->
+  <!-- <joint name="laser_joint1" type="fixed">
+    <axis xyz="0 1 0" />
+    <origin xyz="1.075 0 -0.085" rpy="0 ${pi/2} 0"/>
+    <parent link="Body"/>
+    <child link="laser1"/>
+  </joint>
+
+  <link name="laser1">
+    <collision>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <geometry>
+    <box size="0.1 0.1 0.1"/>
+      </geometry>
+    </collision>
+
+    <visual>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <geometry>
+        <box size="0.1 0.1 0.1"/>
+      </geometry>
+    </visual>
+
+    <inertial>
+      <mass value="1e-5" />
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <inertia ixx="1e-6" ixy="0" ixz="0" iyy="1e-6" iyz="0" izz="1e-6" />
+    </inertial>
+  </link> -->
+
+  <!-- Rear Laser -->
+  <!-- <joint name="laser_joint2" type="fixed">
+    <axis xyz="0 1 0" />
+    <origin xyz="-1.075 0 -0.085" rpy="0 ${pi/2} 0"/>
+    <parent link="Body"/>
+    <child link="laser2"/>
+  </joint>
+
+  <link name="laser2">
+    <collision>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <geometry>
+    <box size="0.1 0.1 0.1"/>
+      </geometry>
+    </collision>
+
+    <visual>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <geometry>
+        <box size="0.1 0.1 0.1"/>
+      </geometry>
+    </visual>
+
+    <inertial>
+      <mass value="1e-5" />
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <inertia ixx="1e-6" ixy="0" ixz="0" iyy="1e-6" iyz="0" izz="1e-6" />
+    </inertial>
+  </link> -->
+
+
+  <!-- IMU -->
+  <joint name="imu_joint" type="fixed">
+    <origin xyz="0 0 -0.02"/>
+    <parent link="Body"/>
+    <child link="imu_link"/>
+  </joint>
+
+  <link name="imu_link">
+    <visual>
+      <origin xyz="0.0 0 0.0" rpy="0 0 0"/>
+      <geometry>
+        <box size="0.01 0.01 0.01"/>
+      </geometry>
+    </visual>
+  </link>
+
+   <!-- Driving Parts -->
+
+  <joint name="LM" type="prismatic">
+    <origin xyz="0.0 0 0" rpy="0 0 0"/>
+    <!-- <origin xyz="-0.1195 0 -0.2135" rpy="0 0 0"/> -->
+    <parent link="DrivingPart"/>
+    <child link="Body"/>
+    <axis xyz="1 0 0"/>
+    <limit effort="5000" lower="-0.3" upper="0.3" velocity="20"/>
+  </joint>
+
+  <link name="DrivingPart">
+    <inertial>
+      <origin xyz="-0.049 0 -0.10847" rpy="0 0 0"/>
+      <!-- <origin xyz="-0.0 0 -0.10847" rpy="0 0 0"/> -->
+      <mass value="38.72018"/>
+      <inertia ixx="1.30793521" ixy="-0.004952681" ixz="0.198291931" 
+               iyy="1.154265591" iyz="-0.005973557" izz="1.323768099"/>
+    </inertial>
+    <visual>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <geometry>
+        <mesh filename="package://quadruped_test_description/mesh/V2/DrivingPart.stl" scale="1 1 1"/>
+      </geometry>
+    </visual>
+  </link>
+
+  <joint name="LW" type="continuous">
+    <origin xyz="0 0.2693 -0.1105" rpy="0 0 0"/>
+    <parent link="DrivingPart"/>
+    <child link="LeftWheel"/>
+    <axis xyz="0 1 0"/>
+  </joint>
+
+  <link name="LeftWheel">
+    <inertial>
+      <origin xyz="0 0.02981 0" rpy="0 0 0"/>
+      <mass value="12.05514"/>
+      <inertia ixx="0.175462932" ixy="3.93246E-06" ixz="-8.1921E-07" 
+               iyy="0.189170789" iyz="6.85486E-06" izz="0.175465175"/>
+    </inertial>
+    <visual>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <geometry>
+        <mesh filename="package://quadruped_test_description/mesh/V2/LeftWheel.stl" scale="1 1 1"/>
+      </geometry>
+    </visual>
+    <!-- <visual>
+      <origin xyz="0 0.08 0" rpy="1.570796 0 0"/>
+      <geometry>
+        <cylinder length="0.19" radius="0.22"/>
+      </geometry>
+    </visual> -->
+    <!-- <collision>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <geometry>
+        <mesh filename="package://quadruped_test_description/mesh/V2/LeftWheel.stl" scale="1 1 1"/>
+      </geometry>
+    </collision> -->
+     <collision>
+      <origin xyz="0 0.08 0" rpy="1.570796 0 0"/>
+      <geometry>
+        <cylinder length="0.19" radius="0.22"/>
+      </geometry>
+    </collision>
+  </link>
+
+  <joint name="RW" type="continuous">
+    <origin xyz="0 -0.2693 -0.1105" rpy="0 0 0"/>
+    <parent link="DrivingPart"/>
+    <child link="RightWheel"/>
+    <axis xyz="0 1 0"/>
+  </joint>
+
+  <link name="RightWheel">
+    <inertial>
+      <origin xyz="0 -0.02981 0" rpy="0 0 0"/>
+      <mass value="12.05514"/>
+      <inertia ixx="0.175462932" ixy="-3.93246E-06" ixz="-8.1921E-07" 
+               iyy="0.189170789" iyz="-6.85486E-06" izz="0.175465175"/>
+    </inertial>
+    <visual>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <geometry>
+        <mesh filename="package://quadruped_test_description/mesh/V2/RightWheel.stl" scale="1 1 1"/>
+      </geometry>
+    </visual>
+    <!-- <visual>
+      <origin xyz="0 -0.08 0" rpy="1.570796 0 0"/>
+      <geometry>
+        <cylinder length="0.19" radius="0.22"/>
+      </geometry>
+    </visual> -->
+     <!-- <collision>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <geometry>
+        <mesh filename="package://quadruped_test_description/mesh/V2/RightWheel.stl" scale="1 1 1"/>
+      </geometry>
+    </collision> -->
+    <collision>
+      <origin xyz="0 -0.08 0" rpy="1.570796 0 0"/>
+      <geometry>
+        <cylinder length="0.19" radius="0.22"/>
+      </geometry>
+    </collision>
+  </link>
+
+
+</robot>
+

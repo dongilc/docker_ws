@@ -1,0 +1,61 @@
+<launch>
+  <!-- These are the arguments you can pass this launch file, for example paused:=true -->
+  <arg name="debug" default="false"/>
+  <arg name="gui" default="true"/>
+  <arg name="paused" default="false"/>
+  <arg name="use_sim_time" default="true"/>
+  <arg name="headless" default="false"/>
+  
+  <!-- We resume the logic in empty_world.launch, changing only the name of the world to be launched -->
+  <include file="$(find gazebo_ros)/launch/empty_world.launch">
+    <!-- <arg name="world_name" value="$(find gazebo_sim)/world/empty.world"/> -->
+    <!-- <arg name="world_name" value="$(find gazebo_sim)/world/road_textures.world"/> -->
+    <!-- <arg name="world_name" value="$(find gazebo_sim)/world/baylands.world"/> -->
+    <!-- <arg name="world_name" value="$(find gazebo_sim)/world/agriculture.world"/> -->
+    <arg name="debug" value="$(arg debug)" />
+    <arg name="gui" value="$(arg gui)" />
+    <arg name="paused" value="$(arg paused)"/>
+    <arg name="use_sim_time" value="$(arg use_sim_time)"/>
+    <arg name="headless" value="$(arg headless)"/>
+  </include>
+
+  <!-- Load the URDF into ROS parameter server -->
+  <param name="robot_description" command="$(find xacro)/xacro  '$(find quadruped_test_description)/urdf/quadruped_test2_noleg.urdf.xacro'"/>
+  <!-- <param name="robot_description" command="$(find xacro)/xacro  '$(find quadruped_test_description)/urdf/quadruped_test2_noleg_2.urdf.xacro'"/> -->
+
+  <!-- Run a python script to the send a service call to gazebo_ros to spawn a URDF robot -->
+  <node name="urdf_spawner" pkg="gazebo_ros" type="spawn_model" respawn="false" output="screen"
+    args="-urdf -x 0 -y 0 -z 0.544 -model QuadrupedTest -param robot_description"/>
+    <!-- args="-urdf -x 0 -y 0 -z 0.3902 -P -0.1744 -Y 0.5233 -model QuadrupedTest -param robot_description"/>  -->
+    <!-- 0.3305 544 -->
+  <!-- if you use quadruped_fixed_old.urdf.xacro : -z 0.5049925 -->
+  <!-- <node name="urdf_spawner" pkg="gazebo_ros" type="spawn_model" respawn="false" output="screen"
+    args="-urdf -x 60.35 -y 39.20 -z 4.54 -model QuadrupedTest -param robot_description"/> -->
+
+  <!-- -J LF_HFE 1.308 -J LF_KFE -2.878 -J LH_HFE 1.308 -J LH_KFE -2.878 
+          -J RF_HFE 1.308 -J RF_KFE -2.878 -J RH_HFE 1.308 -J RH_KFE -2.878 -->
+
+  <!-- Run controller utils -->
+  <rosparam file="$(find quadruped_test_description)/config/controller_lin.yaml" command="load"/>
+
+  <!-- ros_control robotis manipulator launch file -->
+  <!-- load the controllers -->
+  <node name="controller_spawner" pkg="controller_manager" type="spawner" respawn="false"
+    output="screen" ns="/quadruped_robot" args="joint_state_controller LM_pos LW_pos RW_pos"/>
+  
+  <!-- LF_HAA_pos LF_HFE_pos LF_KFE_pos LH_HAA_pos LH_HFE_pos LH_KFE_pos RF_HAA_pos RF_HFE_pos RF_KFE_pos  
+                                                RH_HAA_pos RH_HFE_pos RH_KFE_pos LM_pos LW_pos RW_pos -->
+
+  <!-- convert joint states to TF transforms for rviz, etc -->
+  <node name="robot_state_publisher" pkg="robot_state_publisher" type="robot_state_publisher" respawn="false" output="screen">
+    <remap from="/joint_states" to="/quadruped_robot/joint_states" />
+  </node>
+
+  <!-- Publish joint values -->
+  <node name="joint_state_publisher" pkg="joint_state_publisher" type="joint_state_publisher" />
+  
+  <!-- Joystick node -->
+  <node name="joy" pkg="joy" type="joy_node"/>
+
+
+</launch>

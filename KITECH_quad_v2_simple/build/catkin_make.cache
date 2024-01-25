@@ -1,0 +1,2 @@
+quadruped_test_description
+-DCATKIN_DEVEL_PREFIX=/home/cdi/docker_ws/KITECH_quad_v2_simple/devel -DCMAKE_INSTALL_PREFIX=/home/cdi/docker_ws/KITECH_quad_v2_simple/install -G Unix Makefiles

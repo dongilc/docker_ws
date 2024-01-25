@@ -1,0 +1,2 @@
+- setup-file:
+    local-name: /home/cdi/docker_ws/KITECH_quad_v2_simple/install/setup.sh

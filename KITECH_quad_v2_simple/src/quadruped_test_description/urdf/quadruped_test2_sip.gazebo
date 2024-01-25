@@ -1,0 +1,485 @@
+<?xml version="1.0" ?>
+<robot name="QuadrupedTest" xmlns:xacro="http://www.ros.org/wiki/xacro" >
+
+<xacro:property name="body_color" value="Gazebo/Silver" />
+<xacro:property name="Dummy_color" value="Gazebo/DarkGrey" />
+
+  <gazebo>
+    <plugin name="gazebo_ros_control" filename="libgazebo_ros_control.so">
+        <controlPeriod>0.001</controlPeriod>
+        <robotNamespace>/quadruped_robot</robotNamespace>
+        <robotSimType>gazebo_ros_control/DefaultRobotHWSim</robotSimType>
+        <legacyModeNS>true</legacyModeNS>
+    </plugin>
+  </gazebo>
+
+  <gazebo reference="imu_link">
+        <gravity>true</gravity>
+        <sensor name="imu_sensor" type="imu">
+            <always_on>true</always_on>
+            <update_rate>1000</update_rate>
+            <visualize>true</visualize>
+            <topic>__default_topic__</topic>
+            <plugin filename="libgazebo_ros_imu_sensor.so" name="imu_plugin">
+                <topicName>imu</topicName>
+                <bodyName>imu_link</bodyName>
+                <updateRateHZ>1000.0</updateRateHZ>
+                <gaussianNoise>0.0</gaussianNoise>
+                <xyzOffset>0 0 0</xyzOffset>
+                <rpyOffset>0 0 0</rpyOffset>
+                <frameName>imu_link</frameName>
+                <initialOrientationAsReference>false</initialOrientationAsReference>
+            </plugin>
+            <pose>0 0 0 0 0 0</pose>
+        </sensor>
+  </gazebo>
+
+  <!-- <gazebo reference="link1">
+    <mu1>1.0</mu1>
+    <mu2>1.0</mu2> 
+    <kp>1e+13</kp>
+    <kd>1.0</kd>
+    <maxVel>0.001</maxVel>
+    <minDepth>0.00000000001</minDepth>
+    <gravity>1</gravity>
+    <material>Gazebo/DarkGrey</material>
+  </gazebo>
+
+  <gazebo reference="link2">
+    <mu1>1.0</mu1>
+    <mu2>1.0</mu2> 
+    <kp>1e+13</kp>
+    <kd>1.0</kd>
+    <maxVel>0.001</maxVel>
+    <minDepth>0.00000000001</minDepth>
+    <gravity>1</gravity>
+    <material>Gazebo/DarkGrey</material>
+  </gazebo> -->
+
+  <gazebo reference="LeftWheel">
+    <material>Gazebo/Grey</material>
+    <mu1>1000.0</mu1>
+    <mu2>1000.0</mu2>
+    <collision name="LeftWheel_collision">
+              <surface>
+                  <friction>
+                      <torsional>
+                          <coefficient>1</coefficient>
+                          <use_patch_radius>true</use_patch_radius>
+                          <patch_radius>0.106</patch_radius>
+                      </torsional>
+                  </friction>
+              </surface>
+    </collision>
+    <kp>1e+13</kp>
+    <kd>1.0</kd>
+    <maxVel>0.001</maxVel>
+    <minDepth>0.00000000001</minDepth>
+    <gravity>1</gravity>
+  </gazebo>
+
+  <gazebo reference="RightWheel">
+    <material>Gazebo/Grey</material>
+    <mu1>1000.0</mu1>
+    <mu2>1000.0</mu2>
+    <collision name="RightWheel_collision">
+              <surface>
+                  <friction>
+                      <torsional>
+                          <coefficient>1</coefficient>
+                          <use_patch_radius>true</use_patch_radius>
+                          <patch_radius>0.106</patch_radius>
+                      </torsional>
+                  </friction>
+              </surface>
+    </collision>
+    <kp>1e+13</kp>
+    <kd>1.0</kd>
+    <maxVel>0.001</maxVel>
+    <minDepth>0.00000000001</minDepth>
+    <gravity>1</gravity>
+  </gazebo>
+
+  <gazebo reference="LF0">
+    <mu1>1.0</mu1>
+    <mu2>1.0</mu2> 
+    <kp>1e+13</kp>
+    <kd>1.0</kd>
+    <maxVel>0.001</maxVel>
+    <minDepth>0.00000000001</minDepth>
+    <gravity>1</gravity>
+    <material>${body_color}</material>
+  </gazebo>
+
+  <gazebo reference="LF1">
+    <mu1>1.0</mu1>
+    <mu2>1.0</mu2> 
+    <kp>1e+13</kp>
+    <kd>1.0</kd>
+    <maxVel>0.001</maxVel>
+    <minDepth>0.00000000001</minDepth>
+    <gravity>1</gravity>
+    <material>${body_color}</material>
+  </gazebo>
+
+  <gazebo reference="LF2">
+    <mu1>1.0</mu1>
+    <mu2>1.0</mu2> 
+    <kp>1e+13</kp>
+    <kd>1.0</kd>
+    <maxVel>0.001</maxVel>
+    <minDepth>0.00000000001</minDepth>
+    <gravity>1</gravity>
+    <material>${body_color}</material>
+  </gazebo>
+
+  <gazebo reference="LF_foot">
+    <mu1>1.0</mu1>
+    <mu2>1.0</mu2> 
+    <kp>1e+13</kp>
+    <kd>1.0</kd>
+    <maxVel>0.001</maxVel>
+    <minDepth>0.00000000001</minDepth>
+    <gravity>1</gravity>
+    <material>${body_color}</material>
+  </gazebo>
+
+  <gazebo reference="LH0">
+    <mu1>1.0</mu1>
+    <mu2>1.0</mu2> 
+    <kp>1e+13</kp>
+    <kd>1.0</kd>
+    <maxVel>0.001</maxVel>
+    <minDepth>0.00000000001</minDepth>
+    <gravity>1</gravity>
+    <material>${body_color}</material>
+  </gazebo>
+
+  <gazebo reference="LH1">
+    <mu1>1.0</mu1>
+    <mu2>1.0</mu2> 
+    <kp>1e+13</kp>
+    <kd>1.0</kd>
+    <maxVel>0.001</maxVel>
+    <minDepth>0.00000000001</minDepth>
+    <gravity>1</gravity>
+    <material>${body_color}</material>
+  </gazebo>
+
+  <gazebo reference="LH2">
+    <mu1>1.0</mu1>
+    <mu2>1.0</mu2> 
+    <kp>1e+13</kp>
+    <kd>1.0</kd>
+    <maxVel>0.001</maxVel>
+    <minDepth>0.00000000001</minDepth>
+    <gravity>1</gravity>
+    <material>${body_color}</material>
+  </gazebo>
+
+  <gazebo reference="LH_foot">
+    <mu1>1.0</mu1>
+    <mu2>1.0</mu2> 
+    <kp>1e+13</kp>
+    <kd>1.0</kd>
+    <maxVel>0.001</maxVel>
+    <minDepth>0.00000000001</minDepth>
+    <gravity>1</gravity>
+    <material>${body_color}</material>
+  </gazebo>
+
+  <gazebo reference="LF0">
+    <mu1>1.0</mu1>
+    <mu2>1.0</mu2> 
+    <kp>1e+13</kp>
+    <kd>1.0</kd>
+    <maxVel>0.001</maxVel>
+    <minDepth>0.00000000001</minDepth>
+    <gravity>1</gravity>
+    <material>${body_color}</material>
+  </gazebo>
+
+  <gazebo reference="LF1">
+    <mu1>1.0</mu1>
+    <mu2>1.0</mu2> 
+    <kp>1e+13</kp>
+    <kd>1.0</kd>
+    <maxVel>0.001</maxVel>
+    <minDepth>0.00000000001</minDepth>
+    <gravity>1</gravity>
+    <material>${body_color}</material>
+  </gazebo>
+
+  <gazebo reference="LF2">
+    <mu1>1.0</mu1>
+    <mu2>1.0</mu2> 
+    <kp>1e+13</kp>
+    <kd>1.0</kd>
+    <maxVel>0.001</maxVel>
+    <minDepth>0.00000000001</minDepth>
+    <gravity>1</gravity>
+    <material>${body_color}</material>
+  </gazebo>
+
+  <gazebo reference="LF_foot">
+    <mu1>1.0</mu1>
+    <mu2>1.0</mu2> 
+    <kp>1e+13</kp>
+    <kd>1.0</kd>
+    <maxVel>0.001</maxVel>
+    <minDepth>0.00000000001</minDepth>
+    <gravity>1</gravity>
+    <material>${body_color}</material>
+  </gazebo>
+
+  <gazebo reference="RH0">
+    <mu1>1.0</mu1>
+    <mu2>1.0</mu2> 
+    <kp>1e+13</kp>
+    <kd>1.0</kd>
+    <maxVel>0.001</maxVel>
+    <minDepth>0.00000000001</minDepth>
+    <gravity>1</gravity>
+    <material>${body_color}</material>
+  </gazebo>
+
+  <gazebo reference="RH1">
+    <mu1>1.0</mu1>
+    <mu2>1.0</mu2> 
+    <kp>1e+13</kp>
+    <kd>1.0</kd>
+    <maxVel>0.001</maxVel>
+    <minDepth>0.00000000001</minDepth>
+    <gravity>1</gravity>
+    <material>${body_color}</material>
+  </gazebo>
+
+  <gazebo reference="RH2">
+    <mu1>1.0</mu1>
+    <mu2>1.0</mu2> 
+    <kp>1e+13</kp>
+    <kd>1.0</kd>
+    <maxVel>0.001</maxVel>
+    <minDepth>0.00000000001</minDepth>
+    <gravity>1</gravity>
+    <material>${body_color}</material>
+  </gazebo>
+
+  <gazebo reference="RH_foot">
+    <mu1>1.0</mu1>
+    <mu2>1.0</mu2> 
+    <kp>1e+13</kp>
+    <kd>1.0</kd>
+    <maxVel>0.001</maxVel>
+    <minDepth>0.00000000001</minDepth>
+    <gravity>1</gravity>
+    <material>${body_color}</material>
+  </gazebo>
+
+  <gazebo reference="RF0">
+    <mu1>1.0</mu1>
+    <mu2>1.0</mu2> 
+    <kp>1e+13</kp>
+    <kd>1.0</kd>
+    <maxVel>0.001</maxVel>
+    <minDepth>0.00000000001</minDepth>
+    <gravity>1</gravity>
+    <material>${body_color}</material>
+  </gazebo>
+
+  <gazebo reference="RF1">
+    <mu1>1.0</mu1>
+    <mu2>1.0</mu2> 
+    <kp>1e+13</kp>
+    <kd>1.0</kd>
+    <maxVel>0.001</maxVel>
+    <minDepth>0.00000000001</minDepth>
+    <gravity>1</gravity>
+    <material>${body_color}</material>
+  </gazebo>
+
+  <gazebo reference="RF2">
+    <mu1>1.0</mu1>
+    <mu2>1.0</mu2> 
+    <kp>1e+13</kp>
+    <kd>1.0</kd>
+    <maxVel>0.001</maxVel>
+    <minDepth>0.00000000001</minDepth>
+    <gravity>1</gravity>
+    <material>${body_color}</material>
+  </gazebo>
+
+  <gazebo reference="RF_foot">
+    <mu1>1.0</mu1>
+    <mu2>1.0</mu2> 
+    <kp>1e+13</kp>
+    <kd>1.0</kd>
+    <maxVel>0.001</maxVel>
+    <minDepth>0.00000000001</minDepth>
+    <gravity>1</gravity>
+    <material>${body_color}</material>
+  </gazebo>
+
+  <gazebo reference="Body">
+    <mu1>1.0</mu1>
+    <mu2>1.0</mu2> 
+    <kp>1e+13</kp>
+    <kd>1.0</kd>
+    <maxVel>0.001</maxVel>
+    <minDepth>0.00000000001</minDepth>
+    <gravity>1</gravity>
+    <material>${body_color}</material>
+  </gazebo>
+
+  <gazebo reference="DrivingPart">
+    <mu1>1.0</mu1>
+    <mu2>1.0</mu2> 
+    <kp>1e+13</kp>
+    <kd>1.0</kd>
+    <maxVel>0.001</maxVel>
+    <minDepth>0.00000000001</minDepth>
+    <gravity>1</gravity>
+    <material>${body_color}</material>
+  </gazebo>
+
+  <gazebo reference="Dummy">
+    <mu1>1.0</mu1>
+    <mu2>1.0</mu2> 
+    <kp>1e+13</kp>
+    <kd>1.0</kd>
+    <maxVel>0.001</maxVel>
+    <minDepth>0.00000000001</minDepth>
+    <gravity>1</gravity>
+    <material>${Dummy_color}</material>
+  </gazebo>
+
+  <gazebo reference="laser1">
+    <mu1>1.0</mu1>
+    <mu2>1.0</mu2> 
+    <kp>1e+13</kp>
+    <kd>1.0</kd>
+    <maxVel>0.001</maxVel>
+    <minDepth>0.00000000001</minDepth>
+    <gravity>1</gravity>
+    <material>Gazebo/Yellow</material>
+  </gazebo>
+
+  <gazebo reference="laser2">
+    <mu1>1.0</mu1>
+    <mu2>1.0</mu2> 
+    <kp>1e+13</kp>
+    <kd>1.0</kd>
+    <maxVel>0.001</maxVel>
+    <minDepth>0.00000000001</minDepth>
+    <gravity>1</gravity>
+    <material>Gazebo/Yellow</material>
+  </gazebo>
+
+  <!-- laser1 -->
+  <gazebo reference="laser1">
+    <sensor type="ray" name="laser_sensor1">
+      <pose>0 0 0 0 0 0</pose>
+      <visualize>true</visualize>
+      <update_rate>40</update_rate>
+      <ray>
+        <scan>
+          <horizontal>
+            <samples>720</samples>
+            <resolution>1</resolution>
+            <min_angle>-0.523333333</min_angle>
+            <max_angle>0.523333333</max_angle>
+          </horizontal>
+        </scan>
+        <range>
+          <min>0.10</min>
+          <max>30.0</max>
+          <resolution>0.01</resolution>
+        </range>
+        <noise>
+          <type>gaussian</type>
+          <!-- Noise parameters based on published spec for Hokuyo laser
+               achieving "+-30mm" accuracy at range < 10m.  A mean of 0.0m and
+               stddev of 0.01m will put 99.7% of samples within 0.03m of the true
+               reading. -->
+          <mean>0.0</mean>
+          <stddev>0.01</stddev>
+        </noise>
+      </ray>
+      <plugin name="gazebo_ros_head_hokuyo_controller" filename="libgazebo_ros_laser.so">
+        <topicName>/laser1/scan</topicName>
+        <frameName>laser1</frameName>
+      </plugin>
+    </sensor>
+  </gazebo>
+
+  <!-- laser1 -->
+  <gazebo reference="laser2">
+    <sensor type="ray" name="laser_sensor2">
+      <pose>0 0 0 0 0 0</pose>
+      <visualize>true</visualize>
+      <update_rate>40</update_rate>
+      <ray>
+        <scan>
+          <horizontal>
+            <samples>720</samples>
+            <resolution>1</resolution>
+            <min_angle>-0.523333333</min_angle>
+            <max_angle>0.523333333</max_angle>
+          </horizontal>
+        </scan>
+        <range>
+          <min>0.10</min>
+          <max>30.0</max>
+          <resolution>0.01</resolution>
+        </range>
+        <noise>
+          <type>gaussian</type>
+          <!-- Noise parameters based on published spec for Hokuyo laser
+               achieving "+-30mm" accuracy at range < 10m.  A mean of 0.0m and
+               stddev of 0.01m will put 99.7% of samples within 0.03m of the true
+               reading. -->
+          <mean>0.0</mean>
+          <stddev>0.01</stddev>
+        </noise>
+      </ray>
+      <plugin name="gazebo_ros_head_hokuyo_controller" filename="libgazebo_ros_laser.so">
+        <topicName>/laser2/scan</topicName>
+        <frameName>laser2</frameName>
+      </plugin>
+    </sensor>
+  </gazebo>
+
+    
+
+  <!-- <gazebo reference="world"/> -->
+
+  <!-- <GazeboLink link="LF0"/>
+  <GazeboLink link="LF1"/>
+  <GazeboLink link="LF2"/>
+  <GazeboLink link="LF_foot"/>
+
+  <GazeboLink link="LH0"/>
+  <GazeboLink link="LH1"/>
+  <GazeboLink link="LH2"/>
+  <GazeboLink link="LH_foot"/>
+
+  <GazeboLink link="RF0"/>
+  <GazeboLink link="RF1"/>
+  <GazeboLink link="RF2"/>
+  <GazeboLink link="RF_foot"/>
+
+  <GazeboLink link="RH0"/>
+  <GazeboLink link="RH1"/>
+  <GazeboLink link="RH2"/>
+  <GazeboLink link="RH_foot"/>
+  
+  <GazeboLink link="Body"/>
+  <GazeboLink_grey link="base_footprint"/>
+  <GazeboLink_grey link="DrivingPart"/>
+  <GazeboWeelLink wheel="LeftWheel"/>
+  <GazeboWeelLink wheel="RightWheel"/> -->
+
+  <!-- <GazeboBox link="link1"/>
+  <GazeboBox link="link2"/> -->
+
+</robot>
