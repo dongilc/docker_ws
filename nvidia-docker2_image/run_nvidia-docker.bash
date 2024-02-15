@@ -6,7 +6,7 @@ xauth nlist $DISPLAY | sed -e 's/^..../ffff/' | xauth -f $XAUTH nmerge -
 
 DOCKER_WS=~/docker_ws
 
-docker run --name nvidia_ros1 --runtime=nvidia --privileged --gpus all -it \
+docker run --name cuda_ubuntu_v1 --runtime=nvidia --privileged --gpus all -it \
            --volume=$XSOCK:$XSOCK:rw \
            --volume=$XAUTH:$XAUTH:rw \
            --volume=$DOCKER_WS:$DOCKER_WS \
@@ -19,5 +19,5 @@ docker run --name nvidia_ros1 --runtime=nvidia --privileged --gpus all -it \
            --net=host \
            -e __NV_PRIME_RENDER_OFFLOAD=1 \
            -e __GLX_VENDOR_LIBRARY_NAME=nvidia \
-           nvidia_cuda_ros_image_v1 \
+           cuda114_ubuntu1804 \
            bash
