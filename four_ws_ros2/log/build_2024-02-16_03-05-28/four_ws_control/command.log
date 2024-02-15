@@ -1,0 +1,6 @@
+Invoking command in '/home/cdi/four_ws_ros2/build/four_ws_control': CMAKE_PREFIX_PATH=/opt/ros/humble /usr/bin/cmake /home/cdi/four_ws_ros2/src/four_ws_control -DCMAKE_INSTALL_PREFIX=/home/cdi/four_ws_ros2/install/four_ws_control
+Invoked command in '/home/cdi/four_ws_ros2/build/four_ws_control' returned '0': CMAKE_PREFIX_PATH=/opt/ros/humble /usr/bin/cmake /home/cdi/four_ws_ros2/src/four_ws_control -DCMAKE_INSTALL_PREFIX=/home/cdi/four_ws_ros2/install/four_ws_control
+Invoking command in '/home/cdi/four_ws_ros2/build/four_ws_control': CMAKE_PREFIX_PATH=/opt/ros/humble /usr/bin/cmake --build /home/cdi/four_ws_ros2/build/four_ws_control -- -j20 -l20
+Invoked command in '/home/cdi/four_ws_ros2/build/four_ws_control' returned '0': CMAKE_PREFIX_PATH=/opt/ros/humble /usr/bin/cmake --build /home/cdi/four_ws_ros2/build/four_ws_control -- -j20 -l20
+Invoking command in '/home/cdi/four_ws_ros2/build/four_ws_control': CMAKE_PREFIX_PATH=/opt/ros/humble /usr/bin/cmake --install /home/cdi/four_ws_ros2/build/four_ws_control
+Invoked command in '/home/cdi/four_ws_ros2/build/four_ws_control' returned '0': CMAKE_PREFIX_PATH=/opt/ros/humble /usr/bin/cmake --install /home/cdi/four_ws_ros2/build/four_ws_control

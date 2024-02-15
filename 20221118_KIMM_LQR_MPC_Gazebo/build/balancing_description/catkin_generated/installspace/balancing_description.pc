@@ -1,0 +1,8 @@
+prefix=/home/cdi/docker_ws/20221118_KIMM_LQR_MPC_Gazebo/install
+
+Name: balancing_description
+Description: Description of balancing_description
+Version: 0.0.0
+Cflags: 
+Libs: -L${prefix}/lib 
+Requires: 
