@@ -1,8 +1,0 @@
-prefix=/home/cdi/docker_ws/20221118_KIMM_LQR_MPC_Gazebo/install
-
-Name: balancing_gazebo
-Description: Description of balancing_gazebo
-Version: 0.0.0
-Cflags: 
-Libs: -L${prefix}/lib 
-Requires: 

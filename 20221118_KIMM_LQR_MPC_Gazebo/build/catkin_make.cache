@@ -1,2 +1,0 @@
-balancing_description:balancing_gazebo
--DCATKIN_DEVEL_PREFIX=/home/cdi/docker_ws/20221118_KIMM_LQR_MPC_Gazebo/devel -DCMAKE_INSTALL_PREFIX=/home/cdi/docker_ws/20221118_KIMM_LQR_MPC_Gazebo/install -G Unix Makefiles

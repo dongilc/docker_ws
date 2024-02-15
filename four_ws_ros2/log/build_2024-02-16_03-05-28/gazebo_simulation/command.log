@@ -1,6 +1,0 @@
-Invoking command in '/home/cdi/four_ws_ros2/build/gazebo_simulation': CMAKE_PREFIX_PATH=/opt/ros/humble /usr/bin/cmake /home/cdi/four_ws_ros2/src/gazebo_simulation -DCMAKE_INSTALL_PREFIX=/home/cdi/four_ws_ros2/install/gazebo_simulation
-Invoked command in '/home/cdi/four_ws_ros2/build/gazebo_simulation' returned '0': CMAKE_PREFIX_PATH=/opt/ros/humble /usr/bin/cmake /home/cdi/four_ws_ros2/src/gazebo_simulation -DCMAKE_INSTALL_PREFIX=/home/cdi/four_ws_ros2/install/gazebo_simulation
-Invoking command in '/home/cdi/four_ws_ros2/build/gazebo_simulation': CMAKE_PREFIX_PATH=/opt/ros/humble /usr/bin/cmake --build /home/cdi/four_ws_ros2/build/gazebo_simulation -- -j20 -l20
-Invoked command in '/home/cdi/four_ws_ros2/build/gazebo_simulation' returned '0': CMAKE_PREFIX_PATH=/opt/ros/humble /usr/bin/cmake --build /home/cdi/four_ws_ros2/build/gazebo_simulation -- -j20 -l20
-Invoking command in '/home/cdi/four_ws_ros2/build/gazebo_simulation': CMAKE_PREFIX_PATH=/opt/ros/humble /usr/bin/cmake --install /home/cdi/four_ws_ros2/build/gazebo_simulation
-Invoked command in '/home/cdi/four_ws_ros2/build/gazebo_simulation' returned '0': CMAKE_PREFIX_PATH=/opt/ros/humble /usr/bin/cmake --install /home/cdi/four_ws_ros2/build/gazebo_simulation
